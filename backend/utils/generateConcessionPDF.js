@@ -142,4 +142,4 @@ async function generateConcessionPDF(data) {
   });
 }
 
-module.exports = { generateConcessionPDF };
+module.exports = generateConcessionPDF;

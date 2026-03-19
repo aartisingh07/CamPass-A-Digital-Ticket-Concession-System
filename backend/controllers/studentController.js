@@ -200,103 +200,152 @@ const downloadConcessionPDF = async (req, res) => {
     const { studentId } = req.params;
 
     const student = await Student.findById(studentId);
-    if (!student) {
-      return res.status(404).json({ success: false, message: "Student not found" });
-    }
+    if (!student) return res.status(404).json({ success: false, message: "Student not found" });
 
-    const record = await StudentDocuments.findOne({ studentId });
+    const record = await StudentDocuments.findOne({ studentId, status: "ACTIVE" });
     if (!record || record.concessionStatus !== "COMPLETED") {
       return res.status(400).json({ success: false, message: "No concession applied yet" });
     }
 
+    // ── Calculate age from DOB ──
+    const [dd, mm, yyyy] = student.dob.split("/").map(Number);
+    const birth = new Date(yyyy, mm - 1, dd);
+    const today = new Date();
+    let ageYears = today.getFullYear() - birth.getFullYear();
+    if (today < new Date(today.getFullYear(), mm - 1, dd)) ageYears--;
+
     const pdfBytes = await generateConcessionPDF({
-      studentName:   student.name,
-      dob:           student.dob,
-      travelClass:   record.travelClass,
-      period:        record.period,
-      fromStation:   record.fromStation,
-      prevTicketNo:  record.prevTicketNo,
+      name:           student.name,                    // ✅ was studentName
+      dob:            student.dob,                     // ✅ same
+      classVal:       record.travelClass,              // ✅ was travelClass
+      period:         record.period,
+      ageYears:       calculateAge(student.dob),
+      fromStation:    record.fromStation,// ✅ was missing entirely
+      prevCertNo:     record.prevTicketNo,             // ✅ was prevTicketNo
+      lastTicketUpto: record.ticketExpiry,             // ✅ was ticketExpiry
       seasonTicketNo: record.seasonTicketNo,
-      ticketExpiry:  record.ticketExpiry,
-      appDate:       record.appDate
     });
 
     res.setHeader("Content-Type", "application/pdf");
-    res.setHeader(
-      "Content-Disposition",
-      `attachment; filename=ConcessionForm_${student.name.replace(/ /g, "_")}.pdf`
-    );
+    res.setHeader("Content-Disposition", `attachment; filename=ConcessionForm_${student.name.replace(/ /g, "_")}.pdf`);
     res.send(Buffer.from(pdfBytes));
 
   } catch (error) {
     console.error("PDF generation error:", error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
-
-const { generateConcessionPDF } = require("../utils/generateConcessionPDF");
+};  
  
 // ── Helper: calculate age from DOB string (DD/MM/YYYY) ───────────────────────
+// ✅ Handle both formats: "2007-04-16" AND "16/04/2007"
 function calculateAge(dobStr) {
-  const [dd, mm, yyyy] = dobStr.split("/").map(Number);
-  const birth = new Date(yyyy, mm - 1, dd);
+  let birth;
+  if (dobStr.includes("-")) {
+    // YYYY-MM-DD format
+    birth = new Date(dobStr);
+  } else {
+    // DD/MM/YYYY format
+    const [dd, mm, yyyy] = dobStr.split("/").map(Number);
+    birth = new Date(yyyy, mm - 1, dd);
+  }
   const today = new Date();
-  let years   = today.getFullYear() - birth.getFullYear();
-  let months  = today.getMonth()    - birth.getMonth();
-  if (months < 0) { years--; months += 12; }
-  return { years: String(years), months: String(months) };
+  let age = today.getFullYear() - birth.getFullYear();
+  if (today < new Date(today.getFullYear(), birth.getMonth(), birth.getDate())) age--;
+  return String(age);
 }
  
 // ── POST /api/student/apply-concession ───────────────────────────────────────
 const applyConcession = async (req, res) => {
   try {
     const {
-      name,
-      classVal        = "II",
-      period          = "Quarterly",
-      fromStation,
-      dob,                          // DD/MM/YYYY
-      prevCertNo      = "NIL",
-      lastTicketUpto  = "NIL",
-      seasonTicketNo  = "NIL",
+      studentId,
+      period,
+      travelClass,
+      prevTicketNo,
+      seasonTicketNo,
+      ticketExpiry,
+      appDate
     } = req.body;
- 
-    // Basic validation
-    if (!name || !fromStation || !dob) {
-      return res.status(400).json({
-        success: false,
-        message: "name, fromStation and dob are required",
+
+    if (!studentId) {
+      return res.status(400).json({ success: false, message: "studentId is required" });
+    }
+
+    // Save concession details to StudentDocuments record
+    const updated = await StudentDocuments.findOneAndUpdate(
+      { studentId, status: "ACTIVE" },
+      {
+        period,
+        travelClass,
+        prevTicketNo,
+        seasonTicketNo,
+        ticketExpiry,
+        appDate,
+        concessionStatus: "COMPLETED"
+      },
+      { new: true }
+    );
+
+    if (!updated) {
+      return res.status(404).json({ success: false, message: "No active document record found" });
+    }
+
+    res.json({ success: true, message: "Concession applied successfully" });
+
+  } catch (error) {
+    console.error("Concession error:", error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+const getMyConcession = async (req, res) => {
+  try {
+    const { studentId } = req.params;
+
+    const record = await StudentDocuments.findOne({ 
+      studentId, 
+      status: "ACTIVE"  // 👈 add this filter
+    });
+
+    if (!record) {
+      return res.status(404).json({ success: false, message: "No concession record found" });
+    }
+
+    res.status(200).json({ success: true, data: record });
+
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};  
+
+const getDocumentStatus = async (req, res) => {
+  try {
+    const { studentId } = req.params;
+
+    // Get the ACTIVE record first, fallback to latest
+    const record = await StudentDocuments.findOne({ 
+      studentId, 
+      status: "ACTIVE" 
+    });
+
+    if (!record) {
+      // Check if there's any record at all
+      const latest = await StudentDocuments.findOne({ studentId })
+        .sort({ createdAt: -1 });
+      
+      return res.json({ 
+        status: latest ? latest.status : "NOT_FOUND",
+        concessionStatus: latest ? latest.concessionStatus : null
       });
     }
- 
-    const { years } = calculateAge(dob);
- 
-    // Generate the filled PDF buffer
-    const pdfBuffer = await generateConcessionPDF({
-      name,
-      classVal,
-      period,
-      fromStation,
-      ageYears:       years,
-      dob,
-      prevCertNo,
-      lastTicketUpto,
-      seasonTicketNo,
+
+    res.json({ 
+      status: record.status, 
+      concessionStatus: record.concessionStatus 
     });
- 
-    // Optional: save record to DB here
-    // await ConcessionModel.create({ studentId: req.user._id, appliedAt: new Date(), ... });
- 
-    // Send PDF as download
-    const filename = `Concession_${name.replace(/\s+/g, "_")}.pdf`;
-    res.setHeader("Content-Type",        "application/pdf");
-    res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
-    res.setHeader("Content-Length",      pdfBuffer.length);
-    res.send(pdfBuffer);
- 
+
   } catch (error) {
-    console.error("Concession generation error:", error);
-    res.status(500).json({ success: false, message: "Failed to generate concession form" });
+    res.status(500).json({ status: "ERROR", message: error.message });
   }
 };
 
@@ -307,5 +356,6 @@ module.exports = {
   getMyConcession, 
   downloadConcessionPDF, 
   getStudentNotifications,
-  markStudentNotificationRead
+  markStudentNotificationRead,
+  getDocumentStatus
 };

@@ -17,11 +17,9 @@ function MyConcession() {
         );
         const data = await res.json();
 
-        if (data.success && data.concession) {
-          setConcession(data.concession);
-
-          // Show toast only if COMPLETED and first load
-          if (data.concession.status === "COMPLETED") {
+        if (data.success && data.data) {
+          setConcession(data.data);
+          if (data.data.concessionStatus === "COMPLETED") {
             toast.dismiss();
             toast.success("🎉 Concession ready! Download your form below.");
           }
@@ -75,7 +73,7 @@ function MyConcession() {
     return d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
   };
 
-  const isCompleted = concession?.status === "COMPLETED";
+  const isCompleted = concession?.concessionStatus === "COMPLETED";
 
   return (
     <div className="concession-history-container">
@@ -97,9 +95,8 @@ function MyConcession() {
             <tr>
               <th>Date</th>
               <th>Period</th>
-              <th>Class</th>
+              <th>Class</th>  
               <th>Route</th>
-              <th>Expiry</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -107,7 +104,7 @@ function MyConcession() {
 
           <tbody>
             <tr>
-              <td>{formatDisplayDate(concession.date)}</td>
+              <td>{formatDisplayDate(concession.appDate)}</td>
               <td>{concession.period
                 ? concession.period.charAt(0).toUpperCase() + concession.period.slice(1)
                 : "—"}
@@ -117,7 +114,6 @@ function MyConcession() {
                 : "—"}
               </td>
               <td>{concession.fromStation} → Thane</td>
-              <td>{formatDisplayDate(concession.expiryDate)}</td>
 
               <td>
                 <span className={`status-badge ${

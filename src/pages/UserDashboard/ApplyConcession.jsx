@@ -31,10 +31,10 @@ function ApplyConcession() {
       `http://localhost:5000/api/students/document-status/${student._id}`
     );
     const statusData = await statusRes.json();
+    console.log("🔍 Status response:", statusData); // ADD THIS
 
     if (statusData.status !== "ACTIVE") {
-      toast.dismiss();
-      toast.error("Complete document upload and wait for admin approval");
+      toast.error(`Document status: ${statusData.status}. Complete upload and wait for approval.`);
       return;
     }
 

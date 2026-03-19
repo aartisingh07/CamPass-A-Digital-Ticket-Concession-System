@@ -8,13 +8,16 @@ const {
   getMyConcession,          // ← ADD
   downloadConcessionPDF,    // ← ADD
   getStudentNotifications,
-  markStudentNotificationRead
+  markStudentNotificationRead,
+  getDocumentStatus
 } = require("../controllers/studentController");
 
 const upload = require("../config/uploadDocuments");
 const StudentDocuments = require("../models/StudentDocuments");
 
-router.post("/apply-concession", protect, applyConcession);
+router.get("/document-status/:studentId", getDocumentStatus);
+
+router.post("/apply-concession",applyConcession);
 router.get("/my-concession/:studentId", getMyConcession);
 router.get("/download-concession-pdf/:studentId", downloadConcessionPDF);
 

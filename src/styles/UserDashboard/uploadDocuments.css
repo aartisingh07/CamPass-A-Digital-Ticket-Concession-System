@@ -1,0 +1,215 @@
+/* =========================================================
+   UPLOAD DOCUMENTS CONTAINER
+========================================================= */
+
+.upload-container {
+  max-width: 800px; /* Increased width to accommodate larger content */
+  margin: 0 auto;
+  background: var(--bg-card);/* Link to theme variable */
+  color: var(--text-primary);
+  padding: 40px 48px; /* Increased padding */
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  /* Alignment is handled by the title and form within this flex container */
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.section-title {
+  margin-bottom: 24px;
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 26px; /* Larger title */
+  text-align: left;
+  width: 100%;
+}
+
+/* =========================================================
+   CATEGORY TOGGLE
+========================================================= */
+
+.category-toggle {
+  display: flex;
+  gap: 16px; /* Slightly larger gap */
+  margin-bottom: 36px; /* More space below */
+  width: 100%;
+}
+
+.category-toggle button {
+  flex: 1;
+  padding: 14px; /* Taller buttons */
+  border-radius: 10px;
+  border: 2px solid var(--primary);
+  background: var(--bg-card);
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 16px; /* Larger button text */
+  transition: all 0.3s ease;
+}
+
+.category-toggle button.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* =========================================================
+   FORM LAYOUT
+========================================================= */
+
+.upload-container form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* Increased gap between all form elements */
+  background: transparent;
+}
+
+/* =========================================================
+   DOCUMENT FIELDS (LEFT ALIGNED)
+========================================================= */
+
+.doc-field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* CRITICAL: Flushes everything to the left */
+  width: 100%;
+}
+
+.doc-field label {
+  font-weight: 600;
+  margin-bottom: 98x; /* More label spacing */
+  color: var(--primary);
+  font-size: 20px; /* Larger label font */
+}
+
+/* Refined style for the native browser file input to match larger size */
+.doc-field input[type="file"] {
+  width: 100%;
+  padding: 12px; /* Increased padding */
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-size: 16px; /* Larger text/file name */
+  color: #555;
+  cursor: pointer;
+}
+
+.doc-field input[type="file"],
+.travel-field input {
+  background: var(--bg-soft) !important; /* Dark background for inputs */
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-light) !important;
+}
+
+.doc-field input[type="file"]::-webkit-file-upload-button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+/* =========================================================
+   TRAVEL DETAILS
+========================================================= */
+
+.travel-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal, responsive columns */
+  gap: 24px; /* Larger gap matching other elements */
+  width: 100%;
+  margin-top: 10px; /* Small push-down for balance */
+}
+
+.travel-field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.travel-field label {
+  font-weight: 700;
+  margin-bottom: 10px; /* Matching doc field labels */
+  color: var(--primary);
+  font-size: 18px; /* Larger label font */
+}
+
+.travel-field input {
+  width: 100%;
+  padding: 16px; /* Taller, larger travel inputs */
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: var(--text-primary);
+  font-size: 16px; /* Larger user text */
+}
+
+/* High-priority styling for the disabled 'To' input */
+.disabled-input {
+  cursor: not-allowed;
+  border: 1px solid !important;
+  background: #000000 !important; /* Pure black for disabled look */
+  color: var(--text-secondary) !important;
+  border-color: #222 !important;
+}
+
+/* =========================================================
+   SUBMIT BUTTON
+========================================================= */
+
+.submit-btn {
+  margin-top: 20px; /* Pushed down to match larger layout */
+  width: 100%;
+  padding: 18px; /* Taller submit button */
+  border-radius: 12px;
+  border: none;
+  background: #b0b4b8; /* Increased prominence for disabled state */
+  color: #fff;
+  font-size: 18px; /* Larger submit text */
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+/* Conditional style for when valid and active */
+.submit-btn:not(:disabled) {
+  background: var(--primary);
+  cursor: pointer;
+}
+
+.submit-btn:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.instructions-box{
+  margin-top: 30px;
+  background: #fff8e1;
+  border-left: 5px solid #f4b400;
+  padding: 18px 20px;
+  border-radius: 8px;
+}
+
+.instructions-box h3{
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.instructions-box i{
+  margin-right: 8px;
+  color: #f4b400;
+}
+
+.instructions-box ul{
+  padding-left: 18px;
+}
+
+.instructions-box li{
+  margin-bottom: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+}

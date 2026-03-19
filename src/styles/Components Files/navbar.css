@@ -1,0 +1,351 @@
+/* HEADER BRAND (CamPass) */
+.header-brand {
+  display: none; /* hidden by default (desktop) */
+  align-items: center;
+  gap: 8px;
+  font-size: 22px;
+  font-weight: 600;
+  color: white;
+}
+
+.header-brand i {
+  font-size: 22px;
+}
+
+@media (max-width: 768px) {
+  .header-brand {
+    display: flex; /* ✅ show on phone */
+  }
+}
+
+.top-header {
+  height: 64px;
+  background: linear-gradient(to right, #0a3d62, #1e6091);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  color: white;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* LEFT */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cap-icon {
+  font-size: 22px;
+}
+
+.header-title {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+/* RIGHT */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.icon {
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* PROFILE */
+.profile-wrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.profile-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+}
+
+/* DROPDOWN */
+.dropdown {
+  position: absolute;
+  top: 58px;
+  right: 0;
+  background: white;
+  color: #333;
+  width: 170px;
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 100;
+}
+
+.dropdown-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #e74c3c;
+  color: white;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.logout-btn:hover {
+  background: #c0392b;
+}
+
+/* PROFILE ICON CIRCLE (HEADER) */
+.profile-icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: white;
+  color: #0a3d62;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 20px;   /* 🔥 INCREASED ICON SIZE */
+  cursor: pointer;
+}
+
+/* PROFILE ICON IN DROPDOWN */
+.dropdown-profile-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #0a3d62;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 28px;   /* 🔥 BIG & CLEAR */
+}
+
+/* ===== PROFILE ICON HOVER ===== */
+.profile-icon-circle {
+  transition: all 0.3s ease;
+}
+
+.profile-icon-circle:hover {
+  background: #eaf2f8;
+  transform: scale(1.08);
+}
+
+/* ICON HOVER */
+.icon {
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.icon:hover {
+  transform: scale(1.2);
+  color: #ffd700;
+}
+
+/* DROPDOWN ANIMATION */
+.dropdown {
+  animation: dropdownFade 0.25s ease;
+}
+
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}   
+
+.fa-user {
+  font-size: 25px; /* try 20px, 22px, 24px */
+}
+
+/* HEADER ICON DIVIDER */
+.header-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.35);
+}
+/* ================= MOBILE HEADER ================= */
+@media (max-width: 768px) {
+
+  .top-header {
+    padding: 0 15px;
+  }
+
+  .header-title {
+    font-size: 16px;
+  }
+
+  .header-right {
+    gap: 12px;
+  }
+
+  .icon {
+    font-size: 16px;
+  }
+
+  .profile-icon-circle {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+
+  .header-title {
+    display: none; /* show only icon */
+  }
+}
+
+.hamburger {
+  display: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Show hamburger on mobile */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+}
+
+/* HIDE "User Dashboard" TEXT ON MOBILE */
+@media (max-width: 768px) {
+  .header-title {
+    display: none;
+  }
+}
+
+.theme-toggle {
+  cursor: pointer;
+  font-size: 18px;
+  transition: transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.2);
+}
+
+.dropdown-item {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 10px 15px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dropdown-item:hover {
+  background: #f2f2f2;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: #ddd;
+  margin: 5px 0;
+}
+
+.profile-info {
+  padding: 10px 15px;
+  text-align: left;
+}
+
+.profile-info strong {
+  display: block;
+  font-size: 14px;
+}
+
+.profile-info p {
+  font-size: 12px;
+  color: gray;
+  margin: 2px 0 0;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: #ddd;
+  margin: 5px 0;
+}
+
+.notification-wrapper {
+  position: relative;
+}
+
+.bell-icon {
+  position: relative;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.notif-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: red;
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.notif-dropdown {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  width: 260px;
+  background: white;
+  color: #333;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  padding: 10px;
+  z-index: 1000;
+}
+.notif-dropdown h4 {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.notif-item.unread {
+  background: #f1f7ff;
+  font-weight: 500;
+}
+.notif-item {
+  padding: 8px;
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.notif-item:hover {
+  background: #f2f2f2;
+}

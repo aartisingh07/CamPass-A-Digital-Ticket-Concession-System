@@ -1,0 +1,149 @@
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f9fa; /* Light grey background makes the white form pop */
+  margin: 0;
+  padding: 0;
+}
+
+.auth-header {
+  background: linear-gradient(to right, #0f3d5e, #1e6091);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;  
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+
+  min-height: 80px;          /* 👈 more breathing */
+  padding: 0 50px; 
+}
+
+.auth-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+}
+
+.theme-toggle {
+  cursor: pointer;
+  display: flex;
+  align-items: center; 
+  font-size: 24px;
+  padding: 6px;
+}
+
+/* Adjust the container below to give the form some breathing room */
+.auth-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Center the form perfectly in the remaining space */
+  padding: 40px 0;
+}
+
+form {
+  background: #fff;
+  padding: 50px;
+  border-radius: 12px;
+  width: 380px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+form h1 {
+  margin-bottom: 25px;
+  color: #0f3d5e;
+}
+
+input {
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #0f3d5e;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.form-error {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+form input {
+  margin: 12px 0;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d9e6;
+  font-size: 14px;
+  transition: 0.25s;
+}
+
+form input:focus {
+  outline: none;
+  border-color: #0f3d5e;
+  box-shadow: 0 0 0 2px rgba(15, 61, 94, 0.15);
+}
+
+body[data-theme="dark"] .auth-page {
+  background-color: #121212;   /* dark mode */
+}
+
+.back-home-btn {
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-home-btn i {
+  font-size: 16px;
+}
+
+.back-home-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateX(-4px);
+}
+
+.back-home i {
+  font-size: 20px;
+}
+
+.back-home:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateX(6px);
+}
+
+.auth-header .back-home-btn {
+  width: auto;
+  padding: 10px 18px;
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

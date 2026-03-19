@@ -1,0 +1,447 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.616);
+  backdrop-filter: blur(8px);
+  color: white;
+  z-index: 1000;
+}
+
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 32px;
+  font-weight: 750;
+  line-height: 1;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 35px;
+  font-size: 15px;
+}
+
+.nav-links li {
+  cursor: pointer;
+}
+
+/* HERO SECTION */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh; 
+  margin-top: 0; 
+  padding-top: 70px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+}
+.overlay {
+  text-align: center;
+  color: white;
+  background: rgba(0, 0, 0, 0.45);
+  width: 100%;
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Heading */
+.overlay h1 {
+  font-size: 42px;
+  margin-bottom: 40px;
+  font-weight: bold;
+}
+
+/* Buttons */
+.hero-buttons {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.student-btn {
+  background-color: #0a3d62;
+  border: none;
+  padding: 14px 35px;
+  font-size: 20px;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 650;
+}
+
+.admin-btn {
+  background-color: #f39c12;
+  border: none;
+  padding: 14px 35px;
+  font-size: 20px;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 650;
+}
+
+.admin-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(48, 48, 48, 0.35);
+  filter: brightness(1.1);
+}
+
+.student-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(48, 48, 48, 0.35);
+  filter: brightness(1.1);
+  background-color: #236086;
+}
+
+.help-section {
+  background-color: #f5f6fa;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.help-section h2 {
+  font-size: 28px;
+  margin-bottom: 40px;
+}
+
+.help-boxes {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+.box {
+  background: white;
+  padding: 30px 50px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.steps-bar {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+
+  background: rgba(0, 0, 0, 0.45);
+  padding: 15px 40px;
+  border-radius: 8px;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  font-weight: 500;
+}
+
+.step-item i {
+  font-size: 22px;
+  color: white;
+}
+
+.step-number {
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
+}
+
+.step-arrow i {
+  color: white;
+  font-size: 18px;
+}
+
+
+/* CONTACT SECTION */
+
+.contact-section {
+  background-color: #d6d6d6;   /* same dashboard light bg */
+  padding: 80px 40px;
+  text-align: center;
+}
+
+.contact-section h2 {
+  font-size: 28px;
+  margin-bottom: 40px;
+  color: #1f4e79;   /* dashboard blue */
+}
+
+.contact-section {
+  background-color: #f3f5f7;
+  padding: 80px 40px;
+  text-align: center;
+}
+
+.contact-section h2 {
+  font-size: 28px;
+  margin-bottom: 50px;
+  color: #1f4e79;
+}
+
+/* GRID LAYOUT */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* INDIVIDUAL CARDS */
+.contact-item {
+  background: white;
+  padding: 30px 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+  transform: translateY(-5px);
+}
+
+.contact-item i {
+  font-size: 28px;
+  color: #1f4e79;
+  margin-bottom: 15px;
+}
+
+.contact-item h4 {
+  margin-bottom: 8px;
+  color: #2c3e50;
+}
+
+.contact-item p {
+  color: #555;
+  font-size: 14px;
+}
+
+.nav-links a {
+  text-decoration: none;   
+  color: white;   
+  font-weight: 400;       
+}
+
+.nav-links li:hover,
+.nav-links a:hover {
+  color: #f1c40f;
+}
+
+/* ================= RESPONSIVE DESIGN ================= */
+
+@media (max-width: 992px) {
+  .nav-links {
+    gap: 20px;
+    font-size: 14px;
+  }
+
+  .logo {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .overlay h1 {
+    font-size: 28px;
+    padding: 0 20px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .student-btn,
+  .admin-btn {
+    width: 220px;
+    font-size: 16px;
+  }
+
+  .steps-bar {
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+  }
+
+  .step-arrow {
+    display: none;   /* remove arrows in mobile */
+  }
+}
+
+
+@media (min-width: 1400px) {
+  .overlay h1 {
+    font-size: 52px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .navbar {
+    padding: 0 20px;
+  }
+
+  .navbar li{
+    font-size: 10px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .nav-links {
+    gap: 15px;
+    font-size: 14px;
+  }
+}
+
+/* ===== FOOTER BASE ===== */
+.dashboard-footer {
+  background-color: #f4f6f8;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* ===== CONTACT SECTION ===== */
+.footer-content {
+  padding: 40px 30px 30px;
+  text-align: center;
+}
+
+.footer-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #0a3d62;
+}
+
+/* ===== BACK TO TOP ===== */
+.back-to-top {
+  margin: 40px auto 25px;           /* 🔥 GAP ABOVE & BELOW */
+  width: fit-content;
+
+  padding: 14px 28px;
+  border-radius: 8px;
+
+  font-weight: 600;
+  cursor: pointer;
+  color: #0a3d62;
+  background-color: #eaf2f8;
+
+  transition: background 0.3s ease;
+}
+
+.back-to-top:hover {
+  background-color: #d6e6f2;
+}
+
+/* ===== COPYRIGHT ===== */
+.footer-bottom {
+  background-color: #eaf2f8;
+  text-align: center;
+  padding: 14px;
+  font-size: 13px;
+  color: #555;
+}
+
+/* ===== CONTACT GRID ===== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+/* CONTACT CARD */
+.contact-card {
+  background: white;
+  border-radius: 14px;
+  padding: 22px 16px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+.contact-card i {
+  font-size: 26px;
+  color: #0a3d62;
+  margin-bottom: 10px;
+}
+
+.contact-card h4 {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #0a3d62;
+}
+
+.contact-card p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* ===== BOTTOM ===== */
+.footer-bottom {
+  background-color: #eaf2f8;
+  text-align: center;
+  padding: 14px;
+  font-size: 13px;
+  color: #555;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .contact-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-content {
+    padding: 30px 15px;
+  }
+}

@@ -1,0 +1,120 @@
+.concession-history-container{
+  background:white;
+  padding:30px;
+  border-radius:16px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.05);
+}
+
+.section-title{
+  margin-bottom:20px;
+}
+
+/* TABLE */
+
+.concession-table{
+  width:100%;
+  min-width:650px;   /* prevents table from squishing */
+  border-collapse:collapse;
+}
+
+.concession-table thead th{
+  text-align:left;
+  padding:14px;
+  background:#1e4f7a;   /* matches dashboard theme */
+  color:white;
+  font-weight:600;
+}
+
+.concession-table td{
+  padding:12px;
+  border-bottom:1px solid #e2e8f0;
+}
+
+/* STATUS BADGES */
+
+.status-badge{
+  padding:5px 12px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:600;
+}
+
+/* Pending */
+
+.status-badge.pending{
+  background:#fef3c7;
+  color:#92400e;
+}
+
+/* Approved */
+
+.status-badge.approved{
+  background:#dcfce7;
+  color:#166534;
+}
+
+/* Rejected */
+
+.status-badge.rejected{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.concession-table thead th:first-child{
+  border-top-left-radius:10px;
+}
+
+.concession-table thead th:last-child{
+  border-top-right-radius:10px;
+}
+
+.concession-table tbody tr:hover{
+  background:#f8fafc;
+}
+
+.concession-history-container{
+  overflow-x:auto;
+}
+
+.concession-history-container::-webkit-scrollbar{
+  height:6px;
+}
+
+.concession-history-container::-webkit-scrollbar-thumb{
+  background:#cbd5e1;
+  border-radius:10px;
+}
+
+@media (max-width:768px){
+
+  .concession-table th,
+  .concession-table td{
+    padding:10px;
+    font-size:13px;
+  }
+
+}
+
+/* DOWNLOAD BUTTON */
+.download-btn {
+  padding: 7px 14px;
+  background: #1e4f7a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.download-btn:hover:not(.disabled) {
+  background: #163d61;
+}
+
+.download-btn.disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+  opacity: 0.7;
+}

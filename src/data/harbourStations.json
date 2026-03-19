@@ -1,0 +1,47 @@
+{
+  "line": "Harbour Line",
+  "origin": "Chhatrapati Shivaji Maharaj Terminus",
+  "main_route": [
+    "Chhatrapati Shivaji Maharaj Terminus",
+    "Masjid",
+    "Sandhurst Road",
+    "Dockyard Road",
+    "Reay Road",
+    "Cotton Green",
+    "Sewri",
+    "Wadala Road"
+  ],
+  "branches": {
+    "towards_panvel": [
+      "Guru Tegh Bahadur Nagar",
+      "Chunabhatti",
+      "Kurla",
+      "Tilak Nagar",
+      "Chembur",
+      "Govandi",
+      "Mankhurd",
+      "Vashi",
+      "Sanpada",
+      "Juinagar",
+      "Nerul",
+      "Seawoods-Darave",
+      "CBD Belapur",
+      "Kharghar",
+      "Mansarovar",
+      "Panvel"
+    ],
+    "towards_goregaon": [
+      "Wadala Road",
+      "Dadar East",
+      "Prabhadevi",
+      "Matunga Road",
+      "Mahim Junction",
+      "Bandra",
+      "Khar Road",
+      "Andheri",
+      "Jogeshwari",
+      "Ram Mandir",
+      "Goregaon"
+    ]
+  }
+}

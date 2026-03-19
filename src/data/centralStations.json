@@ -1,0 +1,63 @@
+{
+  "line": "Central Railway",
+  "origin": "Chhatrapati Shivaji Maharaj Terminus",
+  "stations": [
+    { "name": "Chhatrapati Shivaji Maharaj Terminus", "distance_km": 0 },
+    { "name": "Masjid", "distance_km": 1 },
+    { "name": "Sandhurst Road", "distance_km": 2 },
+    { "name": "Byculla", "distance_km": 4 },
+    { "name": "Chinchpokli", "distance_km": 5 },
+    { "name": "Currey Road", "distance_km": 6.5 },
+    { "name": "Parel", "distance_km": 8 },
+    { "name": "Dadar", "distance_km": 9 },
+    { "name": "Matunga", "distance_km": 11 },
+    { "name": "Sion", "distance_km": 13 },
+    { "name": "Kurla", "distance_km": 15 },
+    { "name": "Vidyavihar", "distance_km": 18 },
+    { "name": "Ghatkopar", "distance_km": 21 },
+    { "name": "Vikhroli", "distance_km": 23 },
+    { "name": "Kanjur Marg", "distance_km": 25 },
+    { "name": "Bhandup", "distance_km": 26 },
+    { "name": "Nahur", "distance_km": 28 },
+    { "name": "Mulund", "distance_km": 32 },
+    { "name": "Thane", "distance_km": 34 },
+    { "name": "Kalwa", "distance_km": 36 },
+    { "name": "Mumbra", "distance_km": 40 },
+    { "name": "Diva Junction", "distance_km": 43 },
+    { "name": "Kopar", "distance_km": 47 },
+    { "name": "Dombivli", "distance_km": 48 },
+    { "name": "Thakurli", "distance_km": 50 },
+    { "name": "Kalyan Junction", "distance_km": 54 }
+  ],
+  "branches": {
+    "karjat_khopoli": [
+      "Vithalwadi",
+      "Ulhasnagar",
+      "Ambarnath",
+      "Badlapur",
+      "Vangani",
+      "Shelu",
+      "Neral Junction",
+      "Bhivpuri Road",
+      "Karjat",
+      "Palasdhari",
+      "Kelavli",
+      "Dolavli",
+      "Lowjee",
+      "Khopoli"
+    ],
+    "kasara": [
+      "Shahad",
+      "Ambivli",
+      "Titwala",
+      "Khadavli",
+      "Vasind",
+      "Asangaon",
+      "Atgaon",
+      "Thansit",
+      "Khardi",
+      "Umbermali",
+      "Kasara"
+    ]
+  }
+}

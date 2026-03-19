@@ -1,0 +1,113 @@
+/* ================= FOOTER BASE ================= */
+.dashboard-footer {
+  margin-top: 60px;
+  background-color: var(--bg-main);
+  border-top: 1px solid var(--border-light);
+}
+
+/* ================= CONTACT SECTION ================= */
+.footer-content {
+  padding: 40px 30px 30px;
+  text-align: center;
+}
+
+.footer-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: var(--primary);
+}
+
+/* ================= CONTACT GRID ================= */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+.contact-card {
+  background: var(--bg-card);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.contact-card i {
+  font-size: 26px;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.contact-card h4 {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: var(--primary);
+}
+
+.contact-card p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ================= MAP ================= */
+.small-map {
+  margin-top: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 150px;
+}
+
+.small-map iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ================= BACK TO TOP ================= */
+.back-to-top {
+  margin: 40px auto 25px;
+  width: fit-content;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--primary);
+  background-color: var(--bg-soft);
+  transition: background 0.3s ease;
+}
+
+.back-to-top:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+/* ================= FOOTER BOTTOM ================= */
+.footer-bottom {
+  background-color: var(--bg-soft);
+  text-align: center;
+  padding: 14px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .contact-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-content {
+    padding: 30px 15px;
+  }
+}

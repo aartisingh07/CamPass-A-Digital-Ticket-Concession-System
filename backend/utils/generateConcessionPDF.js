@@ -31,8 +31,8 @@ function todayDDMMYYYY() {
   const d    = new Date();
   const dd   = String(d.getDate()).padStart(2, "0");
   const mm   = String(d.getMonth() + 1).padStart(2, "0");
-  const yyyy = d.getFullYear();
-  return `${dd}/${mm}/${yyyy}`;
+  const yy   = String(d.getFullYear()).slice(-2);  // 👈 .slice(-2) gives last 2 digits
+  return `${dd}/${mm}/${yy}`;
 }
 
 function drawCentered(ctx, text, xStart, xEnd, y) {
@@ -76,7 +76,7 @@ async function generateConcessionPDF(data) {
 
   // Name — bold 20px, single line
   ctx.font = "bold 20px DejaVu Sans, Arial, sans-serif";
-  ctx.fillText(data.name, 447, 275 + SHIFT);
+  ctx.fillText(data.name, 370, 275 + SHIFT);
 
   // Table cells — 18px, centered in each column
   ctx.font = "18px DejaVu Sans, Arial, sans-serif";
@@ -86,9 +86,9 @@ async function generateConcessionPDF(data) {
 
   // Previous cert info — 22px
   ctx.font = "22px DejaVu Sans, Arial, sans-serif";
-  ctx.fillText(data.prevCertNo,    515, 609  + SHIFT);
-  ctx.fillText(data.lastTicketUpto, 534, 665  + SHIFT);
-  ctx.fillText(today,               489, 1041 + SHIFT);
+  ctx.fillText(data.prevCertNo,    465, 609  + SHIFT);
+  ctx.fillText(data.lastTicketUpto, 490, 665  + SHIFT);
+  ctx.fillText(today,               435, 1041 + SHIFT);
 
   // ── RIGHT SIDE ─────────────────────────────────────────────────────────────
 
@@ -99,7 +99,7 @@ async function generateConcessionPDF(data) {
   // Age & DOB — 22px
   ctx.font = "22px DejaVu Sans, Arial, sans-serif";
   ctx.fillText(data.ageYears,        656,  313 + SHIFT);
-  ctx.fillText(data.dob,             1649, 312 + SHIFT);
+  ctx.fillText(data.dob,             1596, 312 + SHIFT);
 
   // Right table row
   ctx.fillText(data.classVal,        685,  529 + SHIFT);
@@ -109,7 +109,7 @@ async function generateConcessionPDF(data) {
   // "Student at present holds" section
   ctx.fillText(data.classVal,        1128, 635 + SHIFT);
   ctx.fillText(data.seasonTicketNo,  1672, 634 + SHIFT);
-  ctx.fillText(data.fromStation,     711,  663 + SHIFT);
+  ctx.fillText(data.fromStation,     656,  663 + SHIFT);
   ctx.fillText(today,                1632, 664 + SHIFT);
 
   // Date row

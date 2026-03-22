@@ -213,3 +213,7 @@
   font-size: 14px;
   line-height: 1.5;
 }
+.category-toggle button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

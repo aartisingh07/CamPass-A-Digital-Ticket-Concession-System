@@ -52,21 +52,17 @@ function AdminLogin() {
       const data = await res.json();
 
      if (data.success) {
+      toast.success("Admin Login Successful ✅", { autoClose: 2000 });
+      localStorage.setItem("admin", JSON.stringify(data.admin));
 
-        toast.success("Admin Login Successful ✅", {
-          autoClose: 3000
-        });
-
-        // store login info
-        localStorage.setItem("admin", JSON.stringify(data.admin));
-
+      setTimeout(() => {
         navigate("/admin-dashboard");
-
-      }else {
-        toast.error(data.message, {
+      }, 2000); // 👈 wait for toast to finish, THEN navigate
+    }else {
+      toast.error(data.message, {
         autoClose: 3000
       });
-      }
+    }
 
     } catch (error) {
       console.error(error);

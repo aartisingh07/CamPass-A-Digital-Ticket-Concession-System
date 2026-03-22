@@ -47,15 +47,12 @@ const NavbarAdmin = ({ toggleSidebar }) => {
      LOGOUT FUNCTION
   --------------------------------*/
   const handleLogout = () => {
-
-    toast.success("Logged out successfully 👋");
-
     localStorage.removeItem("admin");
-
+    toast.success("Logged out successfully 👋", { autoClose: 2000 });
     setTimeout(() => {
+      toast.dismiss(); // 👈 clear toast before navigating
       navigate("/admin-login");
     }, 2000);
-
   };
 
   /* ------------------------------

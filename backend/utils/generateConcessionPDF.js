@@ -6,7 +6,6 @@
  * Install: npm install canvas img2pdf
  * Place:   concession-template.png  →  backend/server/templates/
  */
-
 const { createCanvas, loadImage } = require("canvas");
 const path  = require("path");
 const fs    = require("fs");
@@ -26,7 +25,6 @@ const COL_FROM_END     = 479;
 const TABLE_ROW_Y      = 455;
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
-
 function todayDDMMYYYY() {
   const d    = new Date();
   const dd   = String(d.getDate()).padStart(2, "0");
@@ -43,7 +41,6 @@ function drawCentered(ctx, text, xStart, xEnd, y) {
 }
 
 // ── Main ─────────────────────────────────────────────────────────────────────
-
 /**
  * @param {Object} data
  * @param {string} data.name
@@ -85,9 +82,9 @@ async function generateConcessionPDF(data) {
   drawCentered(ctx, data.fromStation, COL_FROM_START,   COL_FROM_END,   TABLE_ROW_Y + SHIFT);
 
   // Previous cert info — 22px
-  ctx.font = "22px DejaVu Sans, Arial, sans-serif";
+  ctx.font = "21px DejaVu Sans, Arial, sans-serif";
   ctx.fillText(data.prevCertNo,    465, 609  + SHIFT);
-  ctx.fillText(data.lastTicketUpto, 490, 665  + SHIFT);
+  ctx.fillText(data.lastTicketUpto, 479, 665  + SHIFT);
   ctx.fillText(today,               435, 1041 + SHIFT);
 
   // ── RIGHT SIDE ─────────────────────────────────────────────────────────────
@@ -109,7 +106,7 @@ async function generateConcessionPDF(data) {
   // "Student at present holds" section
   ctx.fillText(data.classVal,        1128, 635 + SHIFT);
   ctx.fillText(data.seasonTicketNo,  1672, 634 + SHIFT);
-  ctx.fillText(data.fromStation,     656,  663 + SHIFT);
+  ctx.fillText(data.fromStation,     653,  663 + SHIFT);
   ctx.fillText(today,                1632, 664 + SHIFT);
 
   // Date row

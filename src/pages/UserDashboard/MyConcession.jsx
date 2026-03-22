@@ -58,6 +58,7 @@ function MyConcession() {
       window.URL.revokeObjectURL(url);
 
       toast.success("Form downloaded! Get it signed from college office.");
+      setConcession(prev => ({ ...prev, hasDownloaded: true }));
 
     } catch (error) {
       toast.error("Download failed. Try again.");
@@ -74,6 +75,7 @@ function MyConcession() {
   };
 
   const isCompleted = concession?.concessionStatus === "COMPLETED";
+  const hasDownloaded = concession?.hasDownloaded === true;
 
   return (
     <div className="concession-history-container">
@@ -125,15 +127,18 @@ function MyConcession() {
 
               <td>
                 <button
-                  className={`download-btn ${!isCompleted ? "disabled" : ""}`}
-                  onClick={isCompleted ? handleDownload : undefined}
-                  disabled={!isCompleted || downloading}
-                  title={!isCompleted ? "Apply for concession first" : "Download concession form"}
-                >
-                  {downloading
-                    ? "⏳ Downloading..."
-                    : "⬇️ Download"
+                  className={`download-btn ${(!isCompleted || hasDownloaded) ? "disabled" : ""}`}
+                  onClick={isCompleted && !hasDownloaded ? handleDownload : undefined}
+                  disabled={!isCompleted || downloading || hasDownloaded}
+                  title={
+                    !isCompleted ? "Apply for concession first" 
+                    : hasDownloaded ? "Already downloaded" 
+                    : "Download concession form"
                   }
+                >
+                  {downloading ? "⏳ Downloading..." 
+                  : hasDownloaded ? "✅ Downloaded" 
+                  : "⬇️ Download"}
                 </button>
               </td>
 
@@ -142,6 +147,9 @@ function MyConcession() {
 
         </table>
       )}
+      <div className="info-box">
+        ⚠️ Note: The concession form can only be downloaded once. Keep it safe!
+      </div>
 
     </div>
   );

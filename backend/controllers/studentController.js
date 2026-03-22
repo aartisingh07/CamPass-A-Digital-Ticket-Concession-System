@@ -207,6 +207,10 @@ const downloadConcessionPDF = async (req, res) => {
       return res.status(400).json({ success: false, message: "No concession applied yet" });
     }
 
+    if (record.hasDownloaded) {
+      return res.status(403).json({ success: false, message: "Form already downloaded" });
+    }
+
     // ── Calculate age from DOB ──
     const [dd, mm, yyyy] = student.dob.split("/").map(Number);
     const birth = new Date(yyyy, mm - 1, dd);
@@ -226,6 +230,10 @@ const downloadConcessionPDF = async (req, res) => {
       seasonTicketNo: record.seasonTicketNo,
     });
 
+    record.hasDownloaded = true;
+    record.downloadedAt = new Date();
+    await record.save();
+    
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("Content-Disposition", `attachment; filename=ConcessionForm_${student.name.replace(/ /g, "_")}.pdf`);
     res.send(Buffer.from(pdfBytes));

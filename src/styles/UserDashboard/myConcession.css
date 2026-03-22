@@ -118,3 +118,22 @@
   cursor: not-allowed;
   opacity: 0.7;
 }
+
+.info-box {
+  margin-top: 25px;
+  padding: 18px 20px;
+
+  background: #fff7e6;          /* light attention background */
+  border: 2px solid #ffa726;    /* strong border */
+  border-left: 6px solid #ff9800;
+
+  border-radius: 10px;
+
+  font-size: 15px;
+  font-weight: 500;
+  color: #5a3e00;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

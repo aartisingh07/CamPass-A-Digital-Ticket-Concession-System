@@ -92,6 +92,16 @@ const studentDocumentsSchema = new mongoose.Schema({
   archived: {
     type: Boolean,
     default: false
+  },
+  
+  hasDownloaded: {
+    type: Boolean,
+    default: false
+  },
+  
+  downloadedAt: {
+    type: Date,
+    default: null
   }
 
 }, { timestamps: true });

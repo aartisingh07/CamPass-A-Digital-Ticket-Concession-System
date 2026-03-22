@@ -7,9 +7,6 @@ function Navbar({ toggleSidebar }) {
   const [open, setOpen] = useState(false);
   const profileRef = useRef(null);
 
-  const [notifOpen, setNotifOpen] = useState(false);
-  const notifRef = useRef(null);
-
   const [notifications, setNotifications] = useState([]);
   const unreadCount = notifications.filter(n => !n.read).length;
 
@@ -25,14 +22,6 @@ function Navbar({ toggleSidebar }) {
         setOpen(false);
       }
 
-      // Close notification dropdown
-      if (
-        notifRef.current &&
-        !notifRef.current.contains(event.target)
-      ) {
-        setNotifOpen(false);
-      }
-
     };
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -40,7 +29,7 @@ function Navbar({ toggleSidebar }) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [profileRef, notifRef]);
+  }, [profileRef]);
 
   const navigate = useNavigate();
 
@@ -100,8 +89,8 @@ function Navbar({ toggleSidebar }) {
       {/* RIGHT */}
       <div className="header-right">
 
-        <div className="notification-wrapper" ref={notifRef}>
-        <div className="bell-icon" onClick={(e) => {e.stopPropagation();setNotifOpen(prev => !prev);
+        <div className="notification-wrapper">
+        <div className="bell-icon" onClick={() => {
           setNotifications(prev =>
             prev.map(n => ({ ...n, read: true }))
           );
@@ -112,25 +101,6 @@ function Navbar({ toggleSidebar }) {
             <span className="notif-badge">{unreadCount}</span>
           )}
         </div>
-
-        {notifOpen && (
-          <div className="notif-dropdown">
-            <h4>Notifications</h4>
-
-            {notifications.length === 0 ? (
-              <p className="no-notif">No notifications</p>
-            ) : (
-              notifications.map((n) => (
-                <div
-                  key={n.id}
-                  className={`notif-item ${!n.read ? "unread" : ""}`}
-                >
-                  {n.text}
-                </div>
-              ))
-            )}
-          </div>
-        )}
       </div>
         <span className="header-divider"></span>
 

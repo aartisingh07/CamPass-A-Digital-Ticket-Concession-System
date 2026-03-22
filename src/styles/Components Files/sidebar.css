@@ -215,3 +215,26 @@
   background-color: #1e6091;
   font-weight: 600;
 }
+
+.sidebar-header {
+  display: flex;
+  flex-direction: row;   /* 👈 back to row */
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+}
+
+.sidebar-title-group {
+  display: flex;
+  flex-direction: column;  /* 👈 only text stacks vertically */
+  gap: 2px;
+}
+
+.sidebar-subtitle {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+  letter-spacing: 0.3px;
+  font-weight: 400;
+  white-space: nowrap;
+}

@@ -264,7 +264,7 @@ table thead th {
 /* FILTER GROUP */
 .filter-group {
   display: flex;
-  align-items: stretch; /* important */
+  align-items: center; /* important */
   gap: 8px;
 }
 
@@ -1651,4 +1651,21 @@ body.dark-theme .safeguard-card:nth-child(3) i { background: rgba(255,247,237,0.
 .header-title {
   font-size: 22px;
   font-weight: 500;
+}
+
+.clear-filters-btn {
+  padding: 8px 14px;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  height: 38px;  /* 👈 add this to match select height */
+  transition: background 0.2s ease;
+}
+
+.clear-filters-btn:hover {
+  background: #c0392b;
 }

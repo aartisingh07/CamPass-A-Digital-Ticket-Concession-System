@@ -6,6 +6,10 @@ const AdminHome = () => {
   const [applications, setApplications] = useState([]);
   const [selectedApplication, setSelectedApplication] = useState(null);
 
+  const [semesterFilter, setSemesterFilter] = useState("");
+  const [casteFilter, setCasteFilter] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+
   useEffect(() => {
     fetch("http://localhost:5000/api/admin/applications")
       .then((res) => res.json())
@@ -16,19 +20,40 @@ const AdminHome = () => {
   }, []);
 
   const pendingStudents = applications.filter((app) => {
-  if (app.status === "PENDING") return true;
+    if (app.status === "PENDING") return true;
 
-  if (
-    app.status === "ACTIVE" &&
-    app.undoAvailableUntil &&
-    new Date(app.undoAvailableUntil) > new Date()
-  ) {
+    if (
+      app.status === "ACTIVE" &&
+      app.undoAvailableUntil &&
+      new Date(app.undoAvailableUntil) > new Date()
+    ) {
+      return true;
+    }
+    return false;
+  });
+
+  const filteredStudents = pendingStudents.filter((student) => {
+    // Semester filter (you're storing branch, so match accordingly)
+    if (semesterFilter && student.studentId.branch !== semesterFilter) return false;
+
+    // Caste filter
+    if (casteFilter === "Open" && student.category !== "OPEN") return false;
+    if (casteFilter === "SC/ST" && student.category !== "SCST") return false;
+
+    // Search filter (name or PRN)
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      const nameMatch = student.studentId.name.toLowerCase().includes(query);
+      const prnMatch = student.studentId.prn.toLowerCase().includes(query);
+      if (!nameMatch && !prnMatch) return false;
+    }
     return true;
-  }
+  });
 
-  return false;
-});
-
+  const totalApplications = applications.length;
+  const approvedApplications = applications.filter(app => app.status === "ACTIVE").length;
+  const pendingApprovals = applications.filter(app => app.status === "PENDING").length;
+  const totalConcessions = applications.filter(app => app.concessionStatus === "COMPLETED").length;
 
   const approveApplication = async (id) => {
     try {
@@ -41,9 +66,7 @@ const AdminHome = () => {
 
       if (data.success) {
         alert("Application approved");
-
         fetchApplications();
-
         setSelectedApplication(null);
       }
 
@@ -115,22 +138,22 @@ const undoApproval = async (id) => {
       <div className="cards">
         <div className="card">
           <h4>Total Applications Submitted</h4>
-          <h2>None</h2>
+          <h2>{totalApplications}</h2>
         </div>
 
         <div className="card">
           <h4>Approved Applications</h4>
-          <h2>None</h2>
+          <h2>{approvedApplications}</h2>
         </div>
 
         <div className="card">
           <h4>Pending Approvals</h4>
-          <h2>None</h2>
+          <h2>{pendingApprovals}</h2>
         </div>
 
         <div className="card">
           <h4>Total Concessions (This Year)</h4>
-          <h2>None</h2>
+          <h2>{totalConcessions}</h2>
         </div>
       </div>
 
@@ -140,8 +163,8 @@ const undoApproval = async (id) => {
           <span className="filter-text">Filter By:</span>
 
           <div className="filter-group">
-            <select>
-              <option>Semester</option>
+            <select value={semesterFilter} onChange={(e) => setSemesterFilter(e.target.value)}>
+              <option value="">Semester</option>
               <option>1st Semester</option>
               <option>2nd Semester</option>
               <option>3rd Semester</option>
@@ -152,11 +175,24 @@ const undoApproval = async (id) => {
               <option>8th Semester</option>
             </select>
 
-            <select>
-              <option>Caste</option>
+            <select value={casteFilter} onChange={(e) => setCasteFilter(e.target.value)}>
+              <option value="">Caste</option>
               <option>Open</option>
               <option>SC/ST</option>
             </select>
+
+            {(semesterFilter || casteFilter || searchQuery) && (
+              <button
+                className="clear-filters-btn"
+                onClick={() => {
+                  setSemesterFilter("");
+                  setCasteFilter("");
+                  setSearchQuery("");
+                }}
+              >
+                ✕ Clear Filters
+              </button>
+            )}
           </div>
         </div>
 
@@ -166,6 +202,8 @@ const undoApproval = async (id) => {
             <input
               type="text"
               placeholder="Student Name / Student ID"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
             <i className="fas fa-search"></i>
           </div>
@@ -176,9 +214,11 @@ const undoApproval = async (id) => {
       <div className="table-section">
         <h3>Applications Awaiting Review</h3>
 
-        {pendingStudents.length === 0 ? (
+        {filteredStudents.length === 0 ? (
           <p className="no-data">
-            All applications have been reviewed 🎉
+            {pendingStudents.length === 0
+              ? "All applications have been reviewed 🎉"
+              : "No results found for the applied filters 🔍"}
           </p>
         ) : (
           <table>
@@ -186,14 +226,14 @@ const undoApproval = async (id) => {
               <tr>
                 <th>Student ID</th>
                 <th>Name</th>
-                <th>Semester</th>
+                <th>Branch</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
 
             <tbody>
-              {pendingStudents.map((student) => (
+              {filteredStudents.map((student) => (
                 <tr key={student._id}>
                   <td>{student.studentId.prn}</td>
                   <td>{student.studentId.name}</td>

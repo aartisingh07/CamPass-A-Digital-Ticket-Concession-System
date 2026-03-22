@@ -4,6 +4,7 @@ const studentSchema = new mongoose.Schema({
   name: String,
   prn: { type: String, unique: true },
   branch: String,
+  year: { type: Number, default: 1 }, // 1, 2, 3, or 4
   mobile: String,
   password: String,
   aadhar: String,

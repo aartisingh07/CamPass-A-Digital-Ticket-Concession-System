@@ -6,7 +6,7 @@ const AdminHome = () => {
   const [applications, setApplications] = useState([]);
   const [selectedApplication, setSelectedApplication] = useState(null);
 
-  const [semesterFilter, setSemesterFilter] = useState("");
+  const [yearFilter, setYearFilter] = useState("");
   const [casteFilter, setCasteFilter] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -33,8 +33,7 @@ const AdminHome = () => {
   });
 
   const filteredStudents = pendingStudents.filter((student) => {
-    // Semester filter (you're storing branch, so match accordingly)
-    if (semesterFilter && student.studentId.branch !== semesterFilter) return false;
+    if (yearFilter && String(student.studentId.year) !== yearFilter) return false;
 
     // Caste filter
     if (casteFilter === "Open" && student.category !== "OPEN") return false;
@@ -93,7 +92,6 @@ const rejectApplication = async (id) => {
           app._id === id ? { ...app, status: "REJECTED" } : app
         )
       );
-
       setSelectedApplication(null);
     }
 
@@ -163,16 +161,12 @@ const undoApproval = async (id) => {
           <span className="filter-text">Filter By:</span>
 
           <div className="filter-group">
-            <select value={semesterFilter} onChange={(e) => setSemesterFilter(e.target.value)}>
-              <option value="">Semester</option>
-              <option>1st Semester</option>
-              <option>2nd Semester</option>
-              <option>3rd Semester</option>
-              <option>4th Semester</option>
-              <option>5th Semester</option>
-              <option>6th Semester</option>
-              <option>7th Semester</option>
-              <option>8th Semester</option>
+            <select value={yearFilter} onChange={(e) => setYearFilter(e.target.value)}>
+              <option value="">Year</option>
+              <option value="1">1st Year</option>
+              <option value="2">2nd Year</option>
+              <option value="3">3rd Year</option>
+              <option value="4">4th Year</option>
             </select>
 
             <select value={casteFilter} onChange={(e) => setCasteFilter(e.target.value)}>
@@ -181,11 +175,11 @@ const undoApproval = async (id) => {
               <option>SC/ST</option>
             </select>
 
-            {(semesterFilter || casteFilter || searchQuery) && (
+            {(yearFilter || casteFilter || searchQuery) && (
               <button
                 className="clear-filters-btn"
                 onClick={() => {
-                  setSemesterFilter("");
+                  setYearFilter("");
                   setCasteFilter("");
                   setSearchQuery("");
                 }}
@@ -227,6 +221,7 @@ const undoApproval = async (id) => {
                 <th>Student ID</th>
                 <th>Name</th>
                 <th>Branch</th>
+                <th>Year</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -238,6 +233,11 @@ const undoApproval = async (id) => {
                   <td>{student.studentId.prn}</td>
                   <td>{student.studentId.name}</td>
                   <td>{student.studentId.branch}</td>
+                  <td>
+                    {student.studentId.year
+                      ? `${student.studentId.year}${student.studentId.year === 1 ? "st" : student.studentId.year === 2 ? "nd" : student.studentId.year === 3 ? "rd" : "th"} Year`
+                      : "—"}
+                  </td>
                   <td>
                     <span
                       className={`status ${student.status.toLowerCase()}`}

@@ -3,7 +3,7 @@ import "../../styles/AdminDashboard/admin.css";
 
 const StudentsList = () => {
   const [approvedStudents, setApprovedStudents] = useState([]);
-  const [semesterFilter, setSemesterFilter] = useState("");
+  const [yearFilter, setYearFilter] = useState("");
   const [branchFilter, setBranchFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -12,7 +12,7 @@ const StudentsList = () => {
   const filteredStudents = approvedStudents.filter((student) => {
     // Branch filter
     if (branchFilter && student.studentId.branch !== branchFilter) return false;
-    if (semesterFilter && student.studentId.branch !== semesterFilter) return false;
+    if (yearFilter && String(student.studentId.year) !== yearFilter) return false;
 
     // Status filter
     if (statusFilter === "Approved" && student.status !== "ACTIVE") return false;
@@ -53,16 +53,12 @@ const StudentsList = () => {
           <option>ET</option>
         </select>
 
-        <select value={semesterFilter} onChange={(e) => setSemesterFilter(e.target.value)}>
-          <option value="">Semester</option>
-          <option>1st Semester</option>
-          <option>2nd Semester</option>
-          <option>3rd Semester</option>
-          <option>4th Semester</option>
-          <option>5th Semester</option>
-          <option>6th Semester</option>
-          <option>7th Semester</option>
-          <option>8th Semester</option>
+        <select value={yearFilter} onChange={(e) => setYearFilter(e.target.value)}>
+          <option value="">Year</option>
+          <option value="1">1st Year</option>
+          <option value="2">2nd Year</option>
+          <option value="3">3rd Year</option>
+          <option value="4">4th Year</option>
         </select>
 
         <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
@@ -71,11 +67,12 @@ const StudentsList = () => {
           <option>Rejected</option>
         </select>
 
-        {(branchFilter || statusFilter || searchQuery) && (
+        {(branchFilter || yearFilter || statusFilter || searchQuery) && (
           <button
             className="clear-filters-btn"
             onClick={() => {
               setBranchFilter("");
+              setYearFilter("");
               setStatusFilter("");
               setSearchQuery("");
             }}
@@ -110,13 +107,15 @@ const StudentsList = () => {
 
           <tbody>
 
-            {approvedStudents.length === 0 ? (
-              <tr>
-                <td colSpan="6">No approved students yet</td>
-              </tr>
+            {filteredStudents.length === 0 ? (
+              <td colSpan="6">
+                {approvedStudents.length === 0
+                  ? "No approved students yet"
+                  : "No results found for applied filters 🔍"}
+              </td>
             ) : (
 
-              approvedStudents.map((student) => (
+              filteredStudents.map((student) => ( 
                 <tr key={student._id}>
 
                   <td>{student.studentId.prn}</td>

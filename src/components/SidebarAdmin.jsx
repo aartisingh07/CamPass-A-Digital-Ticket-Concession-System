@@ -16,7 +16,10 @@ const SidebarAdmin = ({ closeSidebar }) => {
       {/* LOGO */}
       <div className="sidebar-header">
         <i className="fa-solid fa-graduation-cap sidebar-logo-icon"></i>
-        <span className="sidebar-title">CamPass</span>
+        <div className="sidebar-title-group">
+          <span className="sidebar-title">CamPass</span>
+          <p className="sidebar-subtitle">Digital Ticket Concession System</p>
+        </div>
       </div>
 
       {/* MENU */}

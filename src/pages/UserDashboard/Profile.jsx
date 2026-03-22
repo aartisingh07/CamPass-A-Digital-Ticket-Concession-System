@@ -56,6 +56,14 @@ const Profile = () => {
             </div>
 
             <div className="profile-item">
+              <i className="fa-solid fa-calendar"></i>
+              <div>
+                <label>Year</label>
+                <p>{student.year ? `${student.year}${student.year === 1 ? "st" : student.year === 2 ? "nd" : student.year === 3 ? "rd" : "th"} Year` : "—"}</p>
+              </div>
+            </div>
+
+            <div className="profile-item">
               <i className="fa-solid fa-graduation-cap"></i>
               <div>
                 <label>Branch</label>
